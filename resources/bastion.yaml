@@ -1,0 +1,66 @@
+imports:
+  - path: templates/instance/instance.py
+    name: instance.py
+  - path: templates/firewall/firewall.py
+    name: firewall.py
+  - path: templates/iam_member/iam_member.py
+    name: iam_member.py
+
+resources:
+
+  - name: devopstar-bastion-sa
+    type: iam.v1.serviceAccount
+    properties:
+      accountId: bastion
+      displayName: Bastion Service Account
+
+  - name: devopstar-bastion-iam-member
+    type: iam_member.py
+    properties:
+      roles:
+        - role: roles/container.admin
+          members:
+            - serviceAccount:$(ref.devopstar-bastion-sa.email)
+        - role: roles/compute.instanceAdmin
+          members:
+            - serviceAccount:$(ref.devopstar-bastion-sa.email)
+
+  - name: devopstar-bastion
+    type: instance.py
+    properties:
+      serviceAccounts:
+        - email: $(ref.devopstar-bastion-sa.email)
+          scopes:
+            - https://www.googleapis.com/auth/cloud-platform
+      zone: australia-southeast1-a
+      diskImage: projects/ubuntu-os-cloud/global/images/family/ubuntu-1810
+      diskSizeGb: 10
+      machineType: f1-micro
+      hasExternalIp: true
+      diskType: pd-standard
+      network: devopstar-network
+      subnetwork: regions/australia-southeast1/subnetworks/devopstar-subnet
+      metadata:
+        items:
+          - key: startup-script
+            value: sudo apt-get update && sudo snap install kubectl --classic && sudo snap install helm --classic
+      tags:
+        items:
+          - bastion
+
+  - name: devopstar-allow-ssh-bastion
+    type: firewall.py
+    properties:
+      network: devopstar-network
+      rules:
+        - name: allow-ssh-to-bastion
+          allowed:
+            - IPProtocol: tcp
+              ports:
+                - "22"
+          description: Allow SSH from anywhere to Bastion
+          direction: INGRESS
+          sourceRanges:
+            - 0.0.0.0/0
+          targetTags:
+            - bastion

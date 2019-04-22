@@ -1,0 +1,16 @@
+imports:
+  - path: templates/network/network.py
+    name: network.py
+
+resources:
+  - name: devopstar-network
+    type: network.py
+    properties:
+      name: devopstar-network
+      autoCreateSubnetworks: false
+      subnetworks:
+        - name: devopstar-subnet
+          region: australia-southeast1
+          ipCidrRange: 192.168.189.0/24
+          privateIpGoogleAccess: true
+          enableFlowLogs: false

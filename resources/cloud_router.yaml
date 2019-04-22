@@ -1,0 +1,14 @@
+imports:
+  - path: templates/cloud_router/cloud_router.py
+    name: cloud_router.py
+
+resources:
+
+  - name: devopstar-cloud-router
+    type: cloud_router.py
+    properties:
+      name: devopstar-cloud-router
+      network: devopstar-network
+      region: australia-southeast1
+      asn: 65001
+      nat-name: devopstar-nat

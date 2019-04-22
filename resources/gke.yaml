@@ -1,0 +1,54 @@
+imports:
+  - path: templates/gke/gke.py
+    name: gke.py
+
+resources:
+  - name: devopstar-gke
+    type: gke.py
+    properties:
+      clusterLocationType: Regional
+      region: australia-southeast1
+      cluster:
+        name: devopstar-gke
+        description: DevOpStar k8s Cluster
+        network: devopstar-network
+        subnetwork: devopstar-subnet
+        initialClusterVersion: 1.12.7-gke.7
+        nodePools:
+          - name: devopstar-gke-pool
+            initialNodeCount: 2
+            version: 1.12.7-gke.7
+            config:
+              machineType: n1-standard-1
+              oauthScopes:
+                - https://www.googleapis.com/auth/compute
+                - https://www.googleapis.com/auth/devstorage.read_only
+                - https://www.googleapis.com/auth/logging.write
+                - https://www.googleapis.com/auth/monitoring
+            autoscaling:
+              enabled: True
+              minNodeCount: 1
+              maxNodeCount: 2
+            management:
+              autoUpgrade: True
+              autoRepair: True
+        locations:
+          - australia-southeast1-a
+          - australia-southeast1-b
+        management:
+          autoUpgrade: True
+          autoRepair: True
+        loggingService: logging.googleapis.com
+        monitoringService: monitoring.googleapis.com
+        privateClusterConfig:
+          enablePrivateNodes: True
+          enablePrivateEndpoint: True
+          masterIpv4CidrBlock: 172.16.0.0/28
+        ipAllocationPolicy:
+          useIpAliases: True
+          clusterIpv4CidrBlock: 10.1.0.0/16
+          nodeIpv4CidrBlock: 192.168.191.0/24
+          servicesIpv4CidrBlock: 192.168.192.0/24
+        masterAuth:
+          clientCertificateConfig:
+            issueClientCertificate: True
