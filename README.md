@@ -1,5 +1,7 @@
 # GKE Bootstrap - Deployment Manager
 
+Google Cloud Platform Deployment Manager bootstrap for GKE
+
 ---
 
 ## Architecture
