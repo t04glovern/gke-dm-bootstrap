@@ -71,7 +71,7 @@ case "$2" in
         fi
         ;;
     *               )
-        echo "Script requires a resource. E.g. network, cloud-router, gke, bastion"
+        echo "Script requires a resource. E.g. iam, network, cloud-router, gke, bastion"
         exit 1
         ;;
 esac

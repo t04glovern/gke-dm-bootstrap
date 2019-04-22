@@ -28,7 +28,7 @@ Resources must be deployed and removed in the following order
 |--------------------|---------------------|
 | IAM                | Bastion             |
 | Network            | GKE                 |
-| Cloud Router (NAT) |  Cloud Router (NAT) |
+| Cloud Router (NAT) | Cloud Router (NAT)  |
 | GKE                | Network             |
 | Bastion            | IAM                 |
 
@@ -124,6 +124,64 @@ kubectl create -f rbac-config.yaml
 
 # init helm with the service account
 helm init --service-account tiller --history-max 200
+```
+
+## Helm
+
+### Install Packages
+
+#### Nginx External
+
+Deploy the external version of nginx run running the following
+
+```bash
+# From within the k8s folder
+cd gke-dm-bootstrap/k8s
+
+# Install the helm templates as 'nginx'
+helm install --name nginx ./nginx/
+
+# Get the external IP
+kubectl get services
+# NAME            TYPE           CLUSTER-IP        EXTERNAL-IP     PORT(S)        AGE
+# kubernetes      ClusterIP      192.168.192.1     <none>          443/TCP        115m
+# nginx-service   LoadBalancer   192.168.192.132   35.244.100.27   80:30251/TCP   9m
+
+curl http://35.244.100.27
+# <h1>DevOpStar Nginx Kubernetes</h1>
+
+# <p>Congratulations!</p>
+```
+
+#### Nginx Internal
+
+Edit the `k8s/nginx/templates/service.yaml` file and uncomment the following lines
+
+```yaml
+  annotations:
+    cloud.google.com/load-balancer-type: Internal
+
+...
+
+  loadBalancerIP: {{ .Values.staticIp }}
+```
+
+You can update the **staticIp** value in the `k8s/nginx/values.yaml` file
+
+```bash
+# Upgrade the helm templates called 'nginx'
+helm upgrade nginx ./nginx/
+
+curl http://192.168.189.50
+# <h1>DevOpStar Nginx Kubernetes</h1>
+
+# <p>Congratulations!</p>
+```
+
+### Delete Packages
+
+```bash
+helm delete --purge nginx
 ```
 
 ## Attribution

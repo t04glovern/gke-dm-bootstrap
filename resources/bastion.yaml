@@ -7,7 +7,6 @@ imports:
     name: iam_member.py
 
 resources:
-
   - name: devopstar-bastion-sa
     type: iam.v1.serviceAccount
     properties:

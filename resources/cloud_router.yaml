@@ -3,7 +3,6 @@ imports:
     name: cloud_router.py
 
 resources:
-
   - name: devopstar-cloud-router
     type: cloud_router.py
     properties:
