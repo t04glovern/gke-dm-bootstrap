@@ -47,7 +47,6 @@ resources:
         ipAllocationPolicy:
           useIpAliases: True
           clusterIpv4CidrBlock: 10.1.0.0/16
-          nodeIpv4CidrBlock: 192.168.191.0/24
           servicesIpv4CidrBlock: 192.168.192.0/24
         masterAuth:
           clientCertificateConfig:
