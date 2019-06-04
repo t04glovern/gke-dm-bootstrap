@@ -13,11 +13,11 @@ resources:
         description: DevOpStar k8s Cluster
         network: devopstar-network
         subnetwork: devopstar-subnet
-        initialClusterVersion: 1.12.7-gke.7
+        initialClusterVersion: 1.13.5-gke.10
         nodePools:
           - name: devopstar-gke-pool
-            initialNodeCount: 2
-            version: 1.12.7-gke.7
+            initialNodeCount: 1
+            version: 1.13.5-gke.10
             config:
               machineType: n1-standard-1
               oauthScopes:
@@ -35,11 +35,8 @@ resources:
         locations:
           - australia-southeast1-a
           - australia-southeast1-b
-        management:
-          autoUpgrade: True
-          autoRepair: True
-        loggingService: logging.googleapis.com
-        monitoringService: monitoring.googleapis.com
+        loggingService: logging.googleapis.com/kubernetes
+        monitoringService: monitoring.googleapis.com/kubernetes
         privateClusterConfig:
           enablePrivateNodes: True
           enablePrivateEndpoint: True

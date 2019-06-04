@@ -33,7 +33,7 @@ properties:
     description: Location type for the cluster Zonal or Regional.
     enum:
       - Regional
-      - Zonal 
+      - Zonal
   region:
     type: string
     default: us-east1
@@ -72,7 +72,7 @@ properties:
             type: string
             description: |
               The password to use for HTTP basic authentication to the master
-              endpoint. Because the master endpoint is open to the Internet, 
+              endpoint. Because the master endpoint is open to the Internet,
               you must create a strong password. If a password is provided,
               'username' must be also provided (non-empty).
             minLength: 16
@@ -84,16 +84,16 @@ properties:
                 type: boolean
       initialClusterVersion:
         type: string
-        default: 1.11.7-gke.12
+        default: 1.13.5-gke.10
         description: |
-          The initial Kubernetes version for the cluster. 
+          The initial Kubernetes version for the cluster.
           The version can be upgraded later; the upgrades are reflected by the
           currentMasterVersion and currentNodeVersion values.
       loggingService:
         type: string
         default: logging.googleapis.com
         description: |
-          The logging service the cluster uses. Currently 
+          The logging service the cluster uses. Currently
           available options
           logging.googleapis.com (default) - the Google Cloud Logging service
           none - no logs
@@ -116,7 +116,7 @@ properties:
       subnetwork:
         type: string
         description: |
-          The name of the Google Compute Engine subnetwork to which the 
+          The name of the Google Compute Engine subnetwork to which the
           cluster is connected.
       nodePools:
         type: array
@@ -142,12 +142,12 @@ properties:
               minimum: 1
             version:
               type: string
-              default: 1.11.7-gke.12
+              default: 1.13.5-gke.10
               description: The version of Kubernetes of this node.
             autoscaling:
               type: object
               description: |
-                Autoscaler configuration for this NodePool. Autoscaler is 
+                Autoscaler configuration for this NodePool. Autoscaler is
                 enabled only if a valid configuration is present.
               properties:
                 enabled:
@@ -198,8 +198,8 @@ properties:
       clusterIpv4Cidr:
         type: string
         description: |
-          The IP address range of the container pods in the cluster, 
-          in the CIDR notation (e.g. 10.96.0.0/14). Leave blank to have one 
+          The IP address range of the container pods in the cluster,
+          in the CIDR notation (e.g. 10.96.0.0/14). Leave blank to have one
           automatically chosen or specify a /14 block in 10.0.0.0/8.
       locations:
         type: array
@@ -211,7 +211,7 @@ properties:
       enableKubernetesAlpha:
         type: boolean
         description: |
-          Specifies whether Kubernetes alpha features are enabled on the 
+          Specifies whether Kubernetes alpha features are enabled on the
           cluster, including alpha API groups (e.g., v1beta1) and features
           that may not be production-ready.
       resourceLabels:
@@ -233,14 +233,14 @@ properties:
             default: False
             description: |
               Defines whether the ABAC authorizer is enabled for this cluster.
-              When enabled, it identities wheter the system, including its 
+              When enabled, it identities wheter the system, including its
               service accounts, nodes, and controllers, has statically granted
               permissions beyond those provided by the RBAC configuration
               or IAM.
       networkPolicy:
         type: object
         description: |
-          The configuration options for the NetworkPolicy feature 
+          The configuration options for the NetworkPolicy feature
           https://kubernetes.io/docs/concepts/services-networking/networkpolicies/
         properties:
           provider:
@@ -265,7 +265,7 @@ properties:
             type: boolean
             description: |
               Defines whether alias IPs are used for pod IPs in the cluster.
-          createSubnetwork: 
+          createSubnetwork:
             type: boolean
             description: |
               Defines whether a new subnetwork is created automatically for the
@@ -276,23 +276,23 @@ properties:
               A custom subnetwork name to be used if createSubnetwork is True.
               If this field is empty, a name is automatically generated for
               the new subnetwork.
-          clusterSecondaryRangeName: 
+          clusterSecondaryRangeName:
             type: string
             description: |
-              The name of the secondary range to be used for the cluster CIDR 
-              block. The secondary range is used for pod IP addresses. 
-              This must be an existing secondary range associated with the 
+              The name of the secondary range to be used for the cluster CIDR
+              block. The secondary range is used for pod IP addresses.
+              This must be an existing secondary range associated with the
               cluster subnetwork.This is only applicable if both
               useIpAliases and createSubnetwork are False.
-          servicesSecondaryRangeName: 
+          servicesSecondaryRangeName:
             type: string
             description: |
-              The name of the secondary range to be used as for the service 
+              The name of the secondary range to be used as for the service
               CIDR block. The secondary range is used for service ClusterIPs.
-              This must be an existing secondary range associated with 
+              This must be an existing secondary range associated with
               the cluster subnetwork. This is only applicable if both
               useIpAliases and createSubnetwork are False.
-          clusterIpv4CidrBlock: 
+          clusterIpv4CidrBlock:
             type: string
             description: |
               The IP address range for the cluster pod IPs. If this field is set,
@@ -301,36 +301,36 @@ properties:
               Set to blank to have a range chosen with the default size.
               Set to /netmask (e.g., /14) to have a range chosen with a specific
               netmask. Set to a CIDR notation (e.g., 10.96.0.0/14) from the
-              RFC-1918 private networks 
+              RFC-1918 private networks
               (e.g., 10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16) to pick a specific
               range to use.
-          nodeIpv4CidrBlock: 
+          nodeIpv4CidrBlock:
             type: string
             description: |
               The IP address range of the instance IPs in this cluster.
               This is applicable only if createSubnetwork is True.
               Set to blank to have a range chosen with the default size.
-              Set to /netmask (e.g., /14) to have a range chosen with a specific 
-              netmask. Set to a CIDR notation (e.g., 10.96.0.0/14) from the 
+              Set to /netmask (e.g., /14) to have a range chosen with a specific
+              netmask. Set to a CIDR notation (e.g., 10.96.0.0/14) from the
               RFC-1918 private networks
               (e.g., 10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16) to pick a specific
               range to use.
-          servicesIpv4CidrBlock: 
+          servicesIpv4CidrBlock:
             type: string
             description: |
-              The IP address range of the services IPs in the cluster. 
+              The IP address range of the services IPs in the cluster.
               This field is only applicable when useIpAliases is True.
               Set to blank to have a range chosen with the default size.
               Set to /netmask (e.g., /14) to have a range chosen with a specific
-              netmask. Set to a CIDR notation (e.g., 10.96.0.0/14) from the 
-              RFC-1918 private networks 
+              netmask. Set to a CIDR notation (e.g., 10.96.0.0/14) from the
+              RFC-1918 private networks
               (e.g., 10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16) to pick a specific
               range to use.
-          allowRouteOverlap: 
+          allowRouteOverlap:
             type: boolean
             description: |
               If True, allows allocation of cluster CIDR ranges that overlap with
-              certain kinds of network routes (with CIDR ranges that are larger 
+              certain kinds of network routes (with CIDR ranges that are larger
               than the cluster CIDR range). By default, we do not allow cluster
               CIDR ranges to intersect with any user-declared routes.
       masterAuthorizedNetworksConfig:
@@ -409,7 +409,7 @@ properties:
             type: object
             description: |
               The configuration for the NetworkPolicy add-on. This only tracks
-              whether the add-on is enabled on the Master. It does not track 
+              whether the add-on is enabled on the Master. It does not track
               whether network policy is enabled for the nodes.
             properties:
               disabled:
@@ -420,7 +420,7 @@ properties:
           istioConfig:
             type: object
             description: |
-              The configuration for the Istio add-on. 
+              The configuration for the Istio add-on.
             properties:
               disabled:
                 type: boolean
@@ -433,7 +433,7 @@ properties:
                 description: The specified Istio auth mode, either none, or mutual TLS.
                 enum:
                   - AUTH_NONE
-                  - AUTH_MUTUAL_TLS 
+                  - AUTH_MUTUAL_TLS
           cloudRunConfig:
             type: object
             description: |
@@ -461,7 +461,7 @@ properties:
                   startTime:
                     type: string
                     description: |
-                      Time within the maintenance window to start the 
+                      Time within the maintenance window to start the
                       maintenance operations. It must be in the HH:MM
                       format, where HH 00-23 and MM 00-59 GMT.
       binaryAuthorization:
@@ -568,8 +568,8 @@ definitions:
         default: 100
         minimum: 10
         description: |
-          Size of the disk attached to each node, specified in GB. 
-          The smallest allowed disk size is 10GB. 
+          Size of the disk attached to each node, specified in GB.
+          The smallest allowed disk size is 10GB.
       imageType:
         type: string
         default: cos
@@ -580,7 +580,7 @@ definitions:
       oauthScopes:
         type: array
         description: |
-          The set of Google API scopes to be made available on all 
+          The set of Google API scopes to be made available on all
           of the node VMs under the "default" service account.
           E.g., scopes
           https://www.googleapis.com/auth/compute
@@ -600,18 +600,18 @@ definitions:
           The metadata key/value pairs assigned to instances in the
           cluster. Keys must conform to the regexp [a-zA-Z0-9-_]+ and be
           less than 128 bytes in length. Additionally, to avoid ambiguity,
-          keys must neiter conflict with any other metadata keys for the 
-          project nor be one of the reserved keys "cluster-location", 
-          "cluster-name", "cluster-uid", "configure-sh", 
-          "gci-update-strategy", "gci-ensure-gke-docker", 
-          "instance-template", "kube-env", "startup-script", or 
+          keys must neiter conflict with any other metadata keys for the
+          project nor be one of the reserved keys "cluster-location",
+          "cluster-name", "cluster-uid", "configure-sh",
+          "gci-update-strategy", "gci-ensure-gke-docker",
+          "instance-template", "kube-env", "startup-script", or
           "user-data". The total size of all keys and values must be less
           than 512 KB.
       labels:
         type: object
         description: |
-          The map of Kubernetes labels (key/value pairs) to be applied to each 
-          node. These are added to the default label(s) that 
+          The map of Kubernetes labels (key/value pairs) to be applied to each
+          node. These are added to the default label(s) that
           Kubernetes may apply to the nodes.
       localSsdCount:
         type: number
@@ -634,8 +634,8 @@ definitions:
       accelerators:
         type: array
         description: |
-          A list of hardware accelerators to be attached to each node. 
-          See https://cloud.google.com/compute/docs/gpus for more 
+          A list of hardware accelerators to be attached to each node.
+          See https://cloud.google.com/compute/docs/gpus for more
           information about support for GPUs.
         items:
           type: object
@@ -657,9 +657,9 @@ definitions:
       minCpuPlatform:
         type: string
         description: |
-          The minimum CPU platform to be used by the instance. 
+          The minimum CPU platform to be used by the instance.
           The instance may be scheduled on the specified or newer CPU
-          platform. Applicable values are the friendly names of CPU 
+          platform. Applicable values are the friendly names of CPU
           platforms, such as "Intel Haswell" or "Intel Sandy Bridge".
       workloadMetadataConfig:
         type: object
@@ -672,7 +672,7 @@ definitions:
             nodeMetadata:
               type: array
               description: |
-                Configuration that defines how to expose the node 
+                Configuration that defines how to expose the node
                 metadata to the workload running on the node.
               items:
                 type: string
@@ -729,12 +729,13 @@ outputs:
     - currentMasterVersion:
         type: string
         description: The current version of the master in the cluster.
-    - privateEndpoint:
+    - currentNodeVersion:
         type: string
-        description: The internal IP address of this cluster's master endpoint.
-    - publicEndpoint:
-        type: string
-        description: The external IP address of this cluster's master endpoint.
+        description: |
+          The current version of the node software components. In case of
+          multiple versions (e.g., when the components are in the process
+          of being upgraded), this parameter reflects the minimum version
+          among all nodes.
     - nodeIpv4CidrSize:
         type: number
         description: |
@@ -743,7 +744,7 @@ outputs:
     - servicesIpv4Cidr:
         type: string
         description: |
-          The IP address range of the Kubernetes services in the cluster, 
+          The IP address range of the Kubernetes services in the cluster,
           in the CIDR notation (e.g., 1.2.3.4/29). Service addresses are
           typically put in the last /16 of the container CIDR.
     - instanceGroupUrls:

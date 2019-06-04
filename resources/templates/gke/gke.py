@@ -114,7 +114,6 @@ def generate_config(context):
         'selfLink',
         'endpoint',
         'currentMasterVersion',
-        'nodeIpv4CidrSize',
         'servicesIpv4Cidr',
         'instanceGroupUrls',
         'clientCertificate',
