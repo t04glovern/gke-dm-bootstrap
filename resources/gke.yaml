@@ -13,11 +13,11 @@ resources:
         description: DevOpStar k8s Cluster
         network: devopstar-network
         subnetwork: devopstar-subnet
-        initialClusterVersion: 1.13.5-gke.10
+        initialClusterVersion: 1.14.10-gke.24
         nodePools:
           - name: devopstar-gke-pool
             initialNodeCount: 1
-            version: 1.13.5-gke.10
+            version: 1.14.10-gke.24
             config:
               machineType: n1-standard-1
               oauthScopes:

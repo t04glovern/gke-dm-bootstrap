@@ -102,6 +102,13 @@ gcloud compute ssh <project_id>-bastion \
     --zone australia-southeast1-a
 ```
 
+Then pull the repo down locally to the bastion server
+
+```bash
+git clone https://github.com/t04glovern/gke-dm-bootstrap.git
+cd gke-dm-bootstrap/k8s
+```
+
 #### Kubernetes Connect
 
 ```bash
@@ -110,15 +117,13 @@ gcloud container clusters get-credentials <project_id>-gke \
     --region australia-southeast1
 ```
 
-#### Role-based Access Control (RBAC)
+#### Role-based Access Control (RBAC) [Skip]
+
+> **NOTE**: This step is only required for Helm 2.0 or lower. By default you should have Helm 3.0+ installed on the jumpbox, so it is likely safe to skip this step
 
 We'll deploy an RBAC configuration that is used by helm. Perform the following actions from the Bastion server
 
 ```bash
-# Pull the repo along with rbac config to bastion server
-git clone https://github.com/t04glovern/gke-dm-bootstrap.git
-cd gke-dm-bootstrap/k8s
-
 # Create tiller service account & cluster role binding
 kubectl create -f rbac-config.yaml
 

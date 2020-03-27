@@ -32,7 +32,7 @@ resources:
           scopes:
             - https://www.googleapis.com/auth/cloud-platform
       zone: australia-southeast1-a
-      diskImage: projects/ubuntu-os-cloud/global/images/family/ubuntu-1810
+      diskImage: projects/ubuntu-os-cloud/global/images/family/ubuntu-1910
       diskSizeGb: 10
       machineType: f1-micro
       hasExternalIp: true
