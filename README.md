@@ -106,7 +106,6 @@ Then pull the repo down locally to the bastion server
 
 ```bash
 git clone https://github.com/t04glovern/gke-dm-bootstrap.git
-cd gke-dm-bootstrap/k8s
 ```
 
 #### Kubernetes Connect
@@ -119,11 +118,13 @@ gcloud container clusters get-credentials <project_id>-gke \
 
 #### Role-based Access Control (RBAC) [Skip]
 
-> **NOTE**: This step is only required for Helm 2.0 or lower. By default you should have Helm 3.0+ installed on the jumpbox, so it is likely safe to skip this step
+> **NOTE**: This step is only required for Helm 2.0 or lower. By default you should have Helm 3.0+ installed on the bastion, so it is likely safe to skip this step
 
 We'll deploy an RBAC configuration that is used by helm. Perform the following actions from the Bastion server
 
 ```bash
+cd gke-dm-bootstrap/k8s
+
 # Create tiller service account & cluster role binding
 kubectl create -f rbac-config.yaml
 
@@ -144,7 +145,7 @@ Deploy the external version of nginx run running the following
 cd gke-dm-bootstrap/k8s
 
 # Install the helm templates as 'nginx'
-helm install --name nginx ./nginx/
+helm install nginx ./nginx/
 
 # Get the external IP
 kubectl get services
@@ -186,7 +187,7 @@ curl http://192.168.189.50
 ### Delete Packages
 
 ```bash
-helm delete --purge nginx
+helm delete nginx
 ```
 
 ## Attribution
